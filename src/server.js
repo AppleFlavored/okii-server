@@ -65,10 +65,31 @@ const chatManager = {
                     //console.log(response);
                     client.socket.send(`MESSAGE\n${JSON.stringify(response)}`)
                 });
+
+                if (split[1].startsWith('!')) {
+                    const args = split[1].content.slice('!'.length).trim().split(/ +/);
+	                const command = args.shift().toLowerCase();
+
+                    switch (command) {
+                        case 'nickname':
+                            this.changeNickname(ws, args.join('-'));
+                            break;
+                    }
+                }
+
                 break;
             default:
                 break;
         }
+    },
+
+    changeNickname: function(ws, nickname) {
+        for(i = 0; i < this.clients.length; i++){
+			if(this.clients[i].socket === ws){
+				this.clients[i].nickname = nickname;
+                this.updateUserList();
+			}
+		}
     },
 
     getNickname: function(ws)  {
