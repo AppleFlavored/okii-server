@@ -5,7 +5,8 @@
         "start": "node src/server.js"
     },
     "engines": {
-        "node": "12.17.x"
+        "node": "18.3.0",
+        "npm": "8.5.5"
     },
     "dependencies": {
         "bufferutil": "^4.0.3",
